@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1> URL Shortener</h1>
+    <input type="text" id="urlInput" placeholder="Enter a long URL..." />
+    <button onclick="shortenURL()">Shorten</button>
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Made with ❤️ by Sarjak Khanal <strong>NEPAL</strong>
+  </footer>
+
+  <script>
+    async function shortenURL() {
+      const url = document.getElementById("urlInput").value;
+      const response = await fetch("/shorten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+      });
+
+      const data = await response.json();
+      const shortUrl = `http://localhost:3000/redirect/${data.short_url}`;
+      document.getElementById("result").innerHTML = `
+        <p>Shortened URL:</p>
+        <a href="${shortUrl}" target="_blank">${shortUrl}</a>
+      `;
+    }
+  </script>
+</body>
+</html>
