@@ -11,11 +11,10 @@ import (
 )
 
 type URL struct {
-	ID          string json:"id"
-	OriginalURL string json:"original_url"
-
-	ShortURL  string    json:"short_url"
-	CreatedAt time.Time json:"created_at"
+	ID          string    `json:"id"`
+	OriginalURL string    `json:"original_url"`
+	ShortURL    string    `json:"short_url"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 var urlDb = make(map[string]URL)
@@ -67,7 +66,7 @@ func redirectURLhandler(w http.ResponseWriter, r *http.Request) {
 
 func shorturlhandler(w http.ResponseWriter, r *http.Request) {
 	var data struct {
-		URL string json:"url"
+		URL string `json:"url"`
 	}
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
@@ -78,7 +77,7 @@ func shorturlhandler(w http.ResponseWriter, r *http.Request) {
 	shorturl := CreateUrl(data.URL)
 	//fmt.Fprintf(w, "Short URL is: %s",shorturl)
 	response := struct {
-		Shorturl string json:"short_url"
+		Shorturl string `json:"short_url"`
 	}{
 		Shorturl: shorturl,
 	}
@@ -90,7 +89,7 @@ func shorturlhandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("Starting the url shortner project")
-	OriginalURL := "https://en.wikipedia.org/wiki/Mount_Everest"
+	OriginalURL := "https://www.youtube.com/@LearnEassy"
 	CreateUrl(OriginalURL)
 
 	//handler function part
@@ -107,5 +106,3 @@ func main() {
 
 	}
 }
-
-
