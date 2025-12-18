@@ -102,7 +102,7 @@ func main() {
 	fmt.Println("Starting the server on localhost:3000")
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
-		fmt.Println("Error to start the server", err)
+		fmt.Println("Error to starting  the server", err)
 
 	}
 }
